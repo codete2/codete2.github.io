@@ -11,12 +11,25 @@
             while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++ 
         } 
         return paramValue == "" && (paramValue = null), paramValue 
-      } 
+      }
+  		var totalSeconds = 5;
+  		var countdownElement = document.getElementById("countdown");
+  		function updateCountdown() {
+  			var minutes = Math.floor(totalSeconds / 60);
+  			var seconds = totalSeconds % 60;
+  			var timeString = minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+  			countdownElement.innerHTML = timeString + "秒后开始下载...";
+  			totalSeconds--;
+  			if (totalSeconds <= 0) {
+  				clearInterval(countdownTimer);
+  				countdownElement.innerHTML = "<a href='https://codete2.github.io/src/pdf/science.pdf'>下载未开始?点我直接下载!</a>";
+          window.location.href = getParam("url");
+  			}
+  		}
+      var countdownTimer = setInterval(updateCountdown, 1000);
     </script>
   </head>
   <body>
-    <script>
-      window.location.href = getParam("url");
-    </script>
+    <h1 id="countdown"></h1>
   </body>
 </html>
